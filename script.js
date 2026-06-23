@@ -21,16 +21,17 @@ navLinks.querySelectorAll('a').forEach(a =>
   })
 );
 
-// ---- gallery population (curated order, balanced across categories)
+// ---- gallery population (full library, balanced across categories)
 const PORTFOLIO = [
-  { cat: 'exteriors',          n: 6, label: 'Exterior' },
-  { cat: 'interiors',          n: 6, label: 'Interior' },
-  { cat: 'aerials',            n: 6, label: 'Aerial' },
-  { cat: 'twilights',          n: 6, label: 'Twilight' },
-  { cat: 'short-term-rentals', n: 3, label: 'Short-Term Rental' },
-  { cat: 'commercial',         n: 3, label: 'Commercial' },
-  { cat: 'renderings',         n: 5, label: '3D Rendering' },
-  { cat: 'headshots',          n: 4, label: 'Headshot' },
+  { cat: 'exteriors',          n: 26, label: 'Exterior' },
+  { cat: 'interiors',          n: 22, label: 'Interior' },
+  { cat: 'aerials',            n: 26, label: 'Aerial' },
+  { cat: 'twilights',          n: 18, label: 'Twilight' },
+  { cat: 'short-term-rentals', n: 25, label: 'Short-Term Rental' },
+  { cat: 'commercial',         n: 22, label: 'Commercial' },
+  { cat: 'renderings',         n: 16, label: '3D Rendering' },
+  { cat: 'headshots',          n: 11, label: 'Headshot' },
+  { cat: 'virtual-staging',    n: 5,  label: 'Virtual Staging' },
 ];
 
 const gallery = document.getElementById('gallery');
