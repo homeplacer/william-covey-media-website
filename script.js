@@ -189,7 +189,10 @@ form.addEventListener('submit', async e => {
       `Phone: ${fd.get('phone') || ''}\n` +
       `Email: ${fd.get('email') || ''}\n` +
       `Property: ${fd.get('address') || ''}\n` +
-      `Service: ${fd.get('service') || ''}\n\n` +
+      `Package: ${fd.get('service') || ''}\n` +
+      `Approx sq ft: ${fd.get('sqft') || ''}\n` +
+      `Preferred date: ${fd.get('date') || ''}\n` +
+      `Preferred time: ${fd.get('time') || ''}\n\n` +
       `Notes:\n${fd.get('notes') || ''}`;
     const subject = `Shoot request — ${fd.get('name') || 'New lead'}`;
     window.location.href =

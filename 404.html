@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found — William Covey Media</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="https://homeplacer.github.io/william-covey-media-website/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://homeplacer.github.io/william-covey-media-website/styles.css">
+<style>
+  .nf {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    background: #0b0b0c center / cover no-repeat;
+    background-image: image-set(url('https://homeplacer.github.io/william-covey-media-website/images/hero.webp') type('image/webp'), url('https://homeplacer.github.io/william-covey-media-website/images/hero.jpg') type('image/jpeg'));
+    position: relative;
+  }
+  .nf::before { content:""; position:absolute; inset:0; background: rgba(11,11,12,.78); }
+  .nf-in { position: relative; max-width: 560px; }
+  .nf .brand-mark { display:inline-flex; width:54px; height:54px; align-items:center; justify-content:center;
+    border:1px solid var(--accent); color:var(--accent); font-family:var(--serif); font-size:18px; letter-spacing:1px; margin-bottom:28px; }
+  .nf h1 { font-family: var(--serif); font-size: clamp(48px, 12vw, 110px); margin: 0; color: var(--accent); line-height: 1; }
+  .nf h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(24px,4vw,34px); margin: 12px 0 14px; }
+  .nf p { color: var(--ink-soft); margin: 0 0 32px; font-size: 17px; }
+  .nf .btn { margin: 0 6px; }
+</style>
+</head>
+<body>
+  <main class="nf">
+    <div class="nf-in">
+      <span class="brand-mark">WCM</span>
+      <h1>404</h1>
+      <h2>That page wandered off.</h2>
+      <p>The link may be broken or the page moved. Let's get you back to the work.</p>
+      <a href="https://homeplacer.github.io/william-covey-media-website/" class="btn btn-primary">Back to Home</a>
+      <a href="https://homeplacer.github.io/william-covey-media-website/#contact" class="btn btn-ghost">Book a Shoot</a>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "William Covey Media",
+  "short_name": "WCM",
+  "description": "Real estate photography, video, and drone media for Myrtle Beach & the Grand Strand.",
+  "start_url": "/william-covey-media-website/",
+  "scope": "/william-covey-media-website/",
+  "display": "standalone",
+  "background_color": "#0b0b0c",
+  "theme_color": "#0b0b0c",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

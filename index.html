@@ -13,7 +13,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b0b0c">
 <link rel="canonical" href="https://homeplacer.github.io/william-covey-media-website/">
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="images/hero.webp" type="image/webp" fetchpriority="high">
@@ -91,6 +94,8 @@
 </script>
 </head>
 <body>
+
+<a class="skip-link" href="#top">Skip to content</a>
 
 <header class="site-header" id="siteHeader">
   <div class="container nav-wrap">
@@ -262,6 +267,24 @@
       <a href="#portfolio" class="svc-tile reveal" data-go="headshots" data-img="headshots-1"><div class="svc-tile-body"><h3>Agent Headshots</h3><p>Relaxed, confident, on-brand — never stiff.</p></div></a>
       <a href="#portfolio" class="svc-tile reveal" data-go="commercial" data-img="commercial-1"><div class="svc-tile-body"><h3>Commercial &amp; Renderings</h3><p>Hospitality, retail, and 3D renders of what's not built yet.</p></div></a>
     </div>
+  </div>
+</section>
+
+<section class="roi" id="why" aria-label="Why professional real estate media matters">
+  <div class="roi-overlay"></div>
+  <div class="container roi-inner">
+    <div class="section-head reveal">
+      <p class="eyebrow">Why it matters</p>
+      <h2>Better media doesn't cost you — it pays you.</h2>
+      <p class="section-sub">Buyers decide online, in seconds. The listings that win are the ones that look the part.</p>
+    </div>
+    <div class="roi-grid">
+      <div class="roi-stat reveal"><strong>100%</strong><span>of buyers search for homes online before ever booking a showing.<em>National Association of Realtors</em></span></div>
+      <div class="roi-stat reveal"><strong>+$11K</strong><span>more, on average, that homes with professional photography have sold for.<em>Redfin</em></span></div>
+      <div class="roi-stat reveal"><strong>68%</strong><span>more likely to sell — listings marketed with aerial photography.<em>Redfin</em></span></div>
+      <div class="roi-stat reveal"><strong>#1</strong><span>Photos are the feature buyers rank most useful when shopping online.<em>National Association of Realtors</em></span></div>
+    </div>
+    <p class="roi-cta reveal"><a href="#packages" class="btn btn-primary">See Packages</a></p>
   </div>
 </section>
 
@@ -481,7 +504,35 @@
       <details><summary>What's your cancellation policy?</summary><p>24-hour notice for any changes. We wait up to 30 minutes at the property. Same-day cancellations are billed at 100% of the booked services.</p></details>
       <details><summary>Do you cover my area?</summary><p>The full Grand Strand — Myrtle Beach, North Myrtle Beach, Surfside, Murrells Inlet, Pawleys Island, Conway, and surrounding towns. If you're not sure, just ask.</p></details>
       <details><summary>How should the home be prepped?</summary><p>Lights on, blinds open, clutter off counters, vehicles moved off the driveway, pets out of frame. We'll send a full prep checklist when we confirm the shoot.</p></details>
+      <details><summary>Do you offer rush or same-day turnaround?</summary><p>Yes — when you're racing a deadline, ask about rush delivery and we'll do everything we can to get your media back same-day or next-morning.</p></details>
+      <details><summary>Can you shoot vacant land, new construction, or commercial?</summary><p>Absolutely. We shoot lots and land (aerial is great for this), new builds, short-term rentals, and commercial properties — plus 3D renderings for projects that aren't built yet.</p></details>
+      <details><summary>Who owns the photos?</summary><p>Once your invoice is paid, you have a full license to use the media across the MLS, social, print, and your own marketing for as long as you need it.</p></details>
     </div>
+  </div>
+</section>
+
+<section class="section areas" id="areas">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Service Area</p>
+      <h2>Shooting listings across the Grand Strand.</h2>
+      <p class="section-sub">Based in Myrtle Beach and covering the coast from Little River to Georgetown. If your listing is on the Strand, we're there.</p>
+    </div>
+    <ul class="areas-grid reveal">
+      <li>Myrtle Beach</li>
+      <li>North Myrtle Beach</li>
+      <li>Surfside Beach</li>
+      <li>Murrells Inlet</li>
+      <li>Garden City</li>
+      <li>Pawleys Island</li>
+      <li>Litchfield Beach</li>
+      <li>Conway</li>
+      <li>Carolina Forest</li>
+      <li>Little River</li>
+      <li>Longs &amp; Loris</li>
+      <li>Georgetown</li>
+    </ul>
+    <p class="areas-note reveal">Not listed? <a href="#contact">Ask us</a> — we travel for the right project.</p>
   </div>
 </section>
 
@@ -512,22 +563,45 @@
           <label>Phone<input type="tel" name="phone" required></label>
           <label>Email<input type="email" name="email" required></label>
         </div>
-        <label>Property address<input type="text" name="address"></label>
-        <label>What do you need?
-          <select name="service">
-            <option value="">Pick a package</option>
-            <option>Photo only</option>
-            <option>Photo + drone</option>
-            <option>Photo + video</option>
-            <option>Full package (photo, video, drone, twilight, iGUIDE)</option>
-            <option>Short-term rental shoot</option>
-            <option>Commercial / renderings</option>
-            <option>Headshots</option>
-            <option>Not sure — recommend something</option>
-          </select>
-        </label>
-        <label>Anything else?<textarea name="notes" rows="3" placeholder="Square footage, target shoot date, special access notes..."></textarea></label>
-        <button type="submit" class="btn btn-primary btn-block">Request a Shoot</button>
+        <label>Property address<input type="text" name="address" placeholder="Street, city"></label>
+        <div class="form-row">
+          <label>Package
+            <select name="service">
+              <option value="">Pick a package</option>
+              <option>Essentials (photo)</option>
+              <option>Signature (photo + drone + video)</option>
+              <option>Luxury (everything + iGUIDE)</option>
+              <option>Short-term rental shoot</option>
+              <option>Commercial / renderings</option>
+              <option>Headshots</option>
+              <option>Not sure — recommend something</option>
+            </select>
+          </label>
+          <label>Approx. sq ft
+            <select name="sqft">
+              <option value="">Select</option>
+              <option>Under 1,500</option>
+              <option>1,500 – 2,500</option>
+              <option>2,500 – 4,000</option>
+              <option>4,000 – 6,000</option>
+              <option>6,000+</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-row">
+          <label>Preferred date<input type="date" name="date"></label>
+          <label>Preferred time
+            <select name="time">
+              <option value="">Flexible</option>
+              <option>Morning</option>
+              <option>Midday</option>
+              <option>Afternoon</option>
+              <option>Golden hour / twilight</option>
+            </select>
+          </label>
+        </div>
+        <label>Anything else?<textarea name="notes" rows="3" placeholder="Occupied or vacant? Gate code or lockbox? Anything we should know..."></textarea></label>
+        <button type="submit" class="btn btn-primary btn-block">Request My Shoot</button>
         <p class="form-fine">Or just text us at <a href="sms:18439576915">843.957.6915</a>.</p>
       </form>
     </div>
@@ -546,6 +620,7 @@
         <li><a href="#work">Work</a></li>
         <li><a href="#film">Film</a></li>
         <li><a href="#services">Services</a></li>
+        <li><a href="#packages">Packages</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
         <li><a href="#team">Studio</a></li>
       </ul>
@@ -555,6 +630,7 @@
       <ul>
         <li><a href="tel:18439576915">843.957.6915</a></li>
         <li><a href="mailto:Info@WilliamCoveyMedia.com">Info@WilliamCoveyMedia.com</a></li>
+        <li><a href="#areas">Service area</a></li>
         <li><a href="#contact">Book a Shoot</a></li>
       </ul>
     </div>
@@ -568,7 +644,7 @@
     </div>
   </div>
   <div class="container footer-bottom">
-    <p>&copy; <span id="year"></span> William Covey Media, LLC. All rights reserved.</p>
+    <p>&copy; <span id="year"></span> William Covey Media, LLC · Real estate photographer serving Myrtle Beach &amp; the Grand Strand · <a href="privacy.html">Privacy</a></p>
   </div>
 </footer>
 
