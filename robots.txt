@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://homeplacer.github.io/william-covey-media-website/sitemap.xml

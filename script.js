@@ -68,16 +68,24 @@ const items = [];
 const maxN = Math.max(...PORTFOLIO.map(p => p.n));
 for (let i = 0; i < maxN; i++) {
   for (const p of PORTFOLIO) {
-    if (i < p.n) items.push({ cat: p.cat, label: p.label, src: `images/portfolio/${p.cat}-${i + 1}.jpg` });
+    if (i < p.n) items.push({ cat: p.cat, label: p.label, idx: i + 1 });
   }
 }
 
+const DIMS = window.WCM_DIMS || {};
 items.forEach((item) => {
   const el = document.createElement('div');
   el.className = 'gallery-item';
   el.dataset.cat = item.cat;
   el.dataset.label = item.label;
-  el.innerHTML = `<img loading="lazy" src="${item.src}" alt="${item.label} — William Covey Media, Myrtle Beach">`;
+  const base = `images/portfolio/${item.cat}-${item.idx}`;
+  const d = DIMS[`${item.cat}-${item.idx}`] || [1280, 853];
+  const alt = `${item.label} real estate ${item.cat === 'headshots' ? 'headshot' : 'photography'} in Myrtle Beach by William Covey Media`;
+  el.innerHTML =
+    `<picture>` +
+      `<source srcset="${base}.webp" type="image/webp">` +
+      `<img loading="lazy" decoding="async" width="${d[0]}" height="${d[1]}" src="${base}.jpg" alt="${alt}">` +
+    `</picture>`;
   gallery.appendChild(el);
 });
 
@@ -109,6 +117,14 @@ filterBar.addEventListener('click', e => {
   if (btn) setFilter(btn.dataset.filter);
 });
 
+// ---- service tile backgrounds (webp w/ jpg fallback via image-set)
+document.querySelectorAll('.svc-tile[data-img]').forEach(tile => {
+  const b = `images/portfolio/${tile.dataset.img}`;
+  tile.style.backgroundImage = `url('${b}.jpg')`; // fallback first
+  tile.style.backgroundImage =
+    `image-set(url('${b}.webp') type('image/webp'), url('${b}.jpg') type('image/jpeg'))`;
+});
+
 // ---- service tiles jump to portfolio + filter
 document.querySelectorAll('.svc-tile[data-go]').forEach(tile => {
   tile.addEventListener('click', (e) => {
@@ -137,7 +153,7 @@ function openLightbox(visibleIdx) {
 }
 function show() {
   const img = lbList[lbI].querySelector('img');
-  lbImg.src = img.src;
+  lbImg.src = img.currentSrc || img.src;
   lbImg.alt = img.alt;
 }
 function closeLb() { lb.hidden = true; document.body.style.overflow = ''; }
