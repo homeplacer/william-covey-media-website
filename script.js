@@ -21,7 +21,30 @@ navLinks.querySelectorAll('a').forEach(a =>
   })
 );
 
-// ---- gallery population (full library, balanced across categories)
+// ---- scroll reveal
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('is-visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ---- film player
+const filmFrame = document.getElementById('filmFrame');
+const filmVideo = document.getElementById('filmVideo');
+const filmPlay = document.getElementById('filmPlay');
+function playFilm() {
+  filmFrame.classList.add('is-playing');
+  filmVideo.setAttribute('controls', '');
+  filmVideo.play();
+}
+filmPlay.addEventListener('click', (e) => { e.stopPropagation(); playFilm(); });
+filmFrame.addEventListener('click', () => { if (!filmFrame.classList.contains('is-playing')) playFilm(); });
+
+// ---- gallery
 const PORTFOLIO = [
   { cat: 'exteriors',          n: 26, label: 'Exterior' },
   { cat: 'interiors',          n: 22, label: 'Interior' },
@@ -35,37 +58,64 @@ const PORTFOLIO = [
 ];
 
 const gallery = document.getElementById('gallery');
-const items = [];
+const loadMoreBtn = document.getElementById('loadMore');
+const loadMoreWrap = loadMoreBtn.parentElement;
+const INITIAL = 15;
+const STEP = 12;
+
 // interleave categories for a varied feed
+const items = [];
 const maxN = Math.max(...PORTFOLIO.map(p => p.n));
 for (let i = 0; i < maxN; i++) {
   for (const p of PORTFOLIO) {
-    if (i < p.n) items.push({ cat: p.cat, label: p.label, src: `images/portfolio/${p.cat}-${i+1}.jpg` });
+    if (i < p.n) items.push({ cat: p.cat, label: p.label, src: `images/portfolio/${p.cat}-${i + 1}.jpg` });
   }
 }
 
-// add some variety: every 7th item is wide
-items.forEach((item, idx) => {
+items.forEach((item) => {
   const el = document.createElement('div');
   el.className = 'gallery-item';
-  if (idx % 7 === 3) el.classList.add('is-wide');
   el.dataset.cat = item.cat;
   el.dataset.label = item.label;
-  el.dataset.idx = idx;
-  el.innerHTML = `<img loading="lazy" src="${item.src}" alt="${item.label} — William Covey Media">`;
+  el.innerHTML = `<img loading="lazy" src="${item.src}" alt="${item.label} — William Covey Media, Myrtle Beach">`;
   gallery.appendChild(el);
 });
 
+const allItems = Array.from(gallery.querySelectorAll('.gallery-item'));
+let currentFilter = 'all';
+let shown = INITIAL;
+
+function applyView() {
+  const matches = allItems.filter(it => currentFilter === 'all' || it.dataset.cat === currentFilter);
+  allItems.forEach(it => it.classList.add('is-hidden'));
+  matches.slice(0, shown).forEach(it => it.classList.remove('is-hidden'));
+  loadMoreWrap.classList.toggle('is-done', shown >= matches.length);
+}
+applyView();
+
+loadMoreBtn.addEventListener('click', () => { shown += STEP; applyView(); });
+
 // ---- filter
 const filterBar = document.getElementById('filterBar');
+function setFilter(f) {
+  currentFilter = f;
+  shown = INITIAL;
+  filterBar.querySelectorAll('.filter-btn').forEach(b =>
+    b.classList.toggle('is-active', b.dataset.filter === f));
+  applyView();
+}
 filterBar.addEventListener('click', e => {
   const btn = e.target.closest('.filter-btn');
-  if (!btn) return;
-  filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('is-active'));
-  btn.classList.add('is-active');
-  const f = btn.dataset.filter;
-  gallery.querySelectorAll('.gallery-item').forEach(it => {
-    it.style.display = (f === 'all' || it.dataset.cat === f) ? '' : 'none';
+  if (btn) setFilter(btn.dataset.filter);
+});
+
+// ---- service tiles jump to portfolio + filter
+document.querySelectorAll('.svc-tile[data-go]').forEach(tile => {
+  tile.addEventListener('click', (e) => {
+    const go = tile.dataset.go;
+    if (go === 'film') return; // film tile links to #film, let it scroll
+    const known = PORTFOLIO.some(p => p.cat === go);
+    if (known) setFilter(go);
   });
 });
 
@@ -79,36 +129,34 @@ let lbList = [];
 let lbI = 0;
 
 function openLightbox(visibleIdx) {
-  // gather currently-visible items
-  lbList = Array.from(gallery.querySelectorAll('.gallery-item')).filter(it => it.style.display !== 'none');
+  lbList = allItems.filter(it => !it.classList.contains('is-hidden'));
   lbI = visibleIdx;
   show();
   lb.hidden = false;
   document.body.style.overflow = 'hidden';
 }
 function show() {
-  const it = lbList[lbI];
-  const img = it.querySelector('img');
+  const img = lbList[lbI].querySelector('img');
   lbImg.src = img.src;
   lbImg.alt = img.alt;
 }
-function close() { lb.hidden = true; document.body.style.overflow = ''; }
+function closeLb() { lb.hidden = true; document.body.style.overflow = ''; }
 function next() { lbI = (lbI + 1) % lbList.length; show(); }
 function prev() { lbI = (lbI - 1 + lbList.length) % lbList.length; show(); }
 
 gallery.addEventListener('click', e => {
   const it = e.target.closest('.gallery-item');
-  if (!it) return;
-  const visible = Array.from(gallery.querySelectorAll('.gallery-item')).filter(g => g.style.display !== 'none');
+  if (!it || it.classList.contains('is-hidden')) return;
+  const visible = allItems.filter(g => !g.classList.contains('is-hidden'));
   openLightbox(visible.indexOf(it));
 });
-lbClose.addEventListener('click', close);
+lbClose.addEventListener('click', closeLb);
 lbNext.addEventListener('click', next);
 lbPrev.addEventListener('click', prev);
-lb.addEventListener('click', e => { if (e.target === lb) close(); });
+lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
 document.addEventListener('keydown', e => {
   if (lb.hidden) return;
-  if (e.key === 'Escape') close();
+  if (e.key === 'Escape') closeLb();
   if (e.key === 'ArrowRight') next();
   if (e.key === 'ArrowLeft') prev();
 });
@@ -116,7 +164,6 @@ document.addEventListener('keydown', e => {
 // ---- contact form (Formspree + mailto fallback)
 const form = document.getElementById('contactForm');
 form.addEventListener('submit', async e => {
-  // If Formspree isn't configured yet, fall back to mailto so leads aren't lost
   if (form.action.includes('REPLACE_WITH_FORMSPREE_ID')) {
     e.preventDefault();
     const fd = new FormData(form);
@@ -149,9 +196,7 @@ form.addEventListener('submit', async e => {
       card.className = 'form-success';
       card.innerHTML = '<strong>Thanks — we got it.</strong><br>We\'ll be in touch within a few hours to confirm the shoot.';
       form.replaceWith(card);
-    } else {
-      throw new Error('send failed');
-    }
+    } else { throw new Error('send failed'); }
   } catch (err) {
     btn.textContent = original;
     btn.disabled = false;
